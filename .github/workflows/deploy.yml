@@ -21,8 +21,8 @@ jobs:
       - name: BUILD TAG PUSH docker image
         run: |
           docker build -t myp .
-          docker tag myp:latest 156583401640.dkr.ecr.ap-south-1.amazonaws.com/myp:latest
-          docker push 156583401640.dkr.ecr.ap-south-1.amazonaws.com/myp:latest
+          docker tag myp:latest 156583401640.dkr.ecr.ap-south-1.amazonaws.com/day1:latest
+          docker push 156583401640.dkr.ecr.ap-south-1.amazonaws.com/day1:latest
 
 
 
