@@ -1,0 +1,30 @@
+name: Deploy practice
+on:
+  push:
+    branches: 
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v3
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1.6.0
+        with: 
+          aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
+          aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          aws-region: ap-south-1
+      - name: login to ECR
+        run: 
+          aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 156583401640.dkr.ecr.ap-south-1.amazonaws.com
+      - name: BUILD TAG PUSH docker image
+        run: |
+          docker build -t myp .
+          docker tag myp:latest 156583401640.dkr.ecr.ap-south-1.amazonaws.com/myp:latest
+          docker push 156583401640.dkr.ecr.ap-south-1.amazonaws.com/myp:latest
+
+
+
+
+  
